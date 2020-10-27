@@ -1,0 +1,228 @@
+<html>
+  <head>
+    <!-- <title>Hacker News</title>
+    <link rel="stylesheet" href="/public/css/news.css" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <style type="text/css">
+      body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,table,td,img,div,dl,dt,dd,input,button{margin:0;padding:0; box-sizing: border-box}
+      .img01 {
+        width: 56px;
+        height: 56px;
+        float: left;
+      }
+      .payWrap{
+        width:75%;
+        min-height: 560px;
+        background: #FFFFFF;
+        margin: 0 auto;
+		  }
+      .payHeader{
+        height: 56px;
+        line-height: 56px;
+        border-bottom: 1px solid #CCCCCC;
+        padding: 0 40px;
+        font-size: .25rem;
+      }
+      .clearfix:after{content:"";display:block;clear:both;}
+		  .clearfix{zoom:1;}
+      .fl {
+        color: grey;
+        margin-left: .13rem;
+      }
+      .label_clear {
+        display: block
+      }
+      .btn_container {
+        height: 2.9rem;
+        line-height: .896rem;
+        padding: 0 .64rem;
+        position: relative;
+      }
+      .btn {
+        background-color:peru;
+        width: 4.8rem;
+        height: .8rem;
+        outline: none;
+        border: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        border-radius:.8rem;
+        font-size: .35rem;
+        color: honeydew;
+      }
+      .right {
+        float: right;
+      }
+      .left {
+        float: left;
+      }
+      .div_right {
+        width: 6.12rem;
+        height: 56px;
+        float: left;
+        padding: 17px 0;
+        font-size: .25rem;
+      }
+      .radio_size {
+        width: 30px;
+        height: 15px;
+        margin-top: 3.5px;
+      }
+      .header_top {
+        height: 56px;
+        background-color: orangered;
+        color: honeydew;
+        font-size: .35rem;
+        text-align: center;
+        position: relative;
+      }
+      #app {
+        max-width: 750px;
+        margin: 0 auto;
+        height: 100%;
+      }
+      .err {
+        width: .5rem;
+        height: .5rem;
+        float: left;
+      }
+      .button_close {
+        width: .7rem;
+        height: .4rem;
+        background: url('public/img/close02.png') no-repeat 0;
+        background-size:100% 100%;
+        border: none;
+        outline: none;
+        border-color: transparent;
+        box-shadow:none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: -10.784rem;
+        margin: auto;
+
+      }
+      .chonghzi {
+        width: 1.5rem;
+        height: .5rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="header_top">
+        <!-- <button class="button_close" onclick="closeClick()"></button> -->
+        <span class="chonghzi">充值中心</span>
+      </div>
+      <div class="payWrap">
+        <div class="payHeader clearfix">
+          <strong class="fl">选择支付方式</strong>
+        </div>
+        <form action="https://pay.ipaynow.cn/" method="post" id = "form1">
+        <!-- <form action="http://localhost:7007/test" method="post"> -->
+          {% for item in list %}
+            <label class="payHeader label_clear">
+              <img class="img01" src="{{item.src}}" alt="" >
+              <div class="div_right">
+                <span class="left" style="line-height: normal;">{{item.title}}</span>
+                <input class="right radio_size" onclick="getPostData()" id="payChannelType" name="payChannelType" type="radio" value="{{item.id}}"/>
+              </div>
+            </label>
+          {% endfor %}
+          <div class="btn_container" id="btn_container">
+            <input style="visibility:hidden;" type="text" name="" id="cpOrder" value="{{cpOrder}}">
+            <input style="visibility:hidden;" type="text" name="funcode" id="funcode" value="">
+            <input style="visibility:hidden;" type="text" name="version" id="version" value="">
+            <input style="visibility:hidden;" type="text" name="appId" id="appId" value="">
+            <input style="visibility:hidden;" type="text" name="mhtOrderNo" id="mhtOrderNo" value="">
+            <input style="visibility:hidden;" type="text" name="mhtOrderName" id="mhtOrderName" value="">
+            <input style="visibility:hidden;" type="text" name="mhtOrderType" id="mhtOrderType" value="">
+            <input style="visibility:hidden;" type="text" name="mhtOrderAmt" id="mhtOrderAmt" value="">
+            <input style="visibility:hidden;" type="text" name="mhtOrderDetail" id="mhtOrderDetail" value="">
+            <input style="visibility:hidden;" type="text" name="mhtCurrencyType" id="mhtCurrencyType" value="">
+            <input style="visibility:hidden;" type="text" name="mhtOrderStartTime" id="mhtOrderStartTime" value="">
+            <input style="visibility:hidden;" type="text" name="notifyUrl" id="notifyUrl" value="">
+            <input style="visibility:hidden;" type="text" name="frontNotifyUrl" id="frontNotifyUrl" value="">
+            <input style="visibility:hidden;" type="text" name="mhtCharset" id="mhtCharset" value="">
+            <input style="visibility:hidden;" type="text" name="deviceType" id="deviceType" value="">
+            <!-- <input style="visibility:hidden;" type="text" name="consumerId" id="15" value="{{orderData.consumerId}}"> -->
+            <input style="visibility:hidden;" type="text" name="mhtSignType" id="mhtSignType" value="">
+            <input style="visibility:hidden;" type="text" name="mhtSignature" id="mhtSignature" value="">
+            <input style="visibility:hidden;" type="text" id="consumerCreateIp" value="">
+            <input style="visibility:hidden;" type="text" name="" id="outputType" value="">
+            <input class="btn" type="submit" id="bid" value="确认支付">
+          </div>
+        </form>
+      </div>
+    </div>
+   
+  </body>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    !function(N,M){function L(){var a=I.getBoundingClientRect().width;a/F>750&&(a=750*F);var d=a/12;I.style.fontSize=d+"px",D.rem=N.rem=d}var K,J=N.document,I=J.documentElement,H=J.querySelector('meta[name="viewport"]'),G=J.querySelector('meta[name="flexible"]'),F=0,E=0,D=M.flexible||(M.flexible={});if(H){console.warn("The scaling will be set according to the existing meta tags");var C=H.getAttribute("content").match(/initial\-scale=([\d\.]+)/);C&&(E=parseFloat(C[1]),F=parseInt(1/E))}else{if(G){var B=G.getAttribute("content");if(B){var A=B.match(/initial\-dpr=([\d\.]+)/),z=B.match(/maximum\-dpr=([\d\.]+)/);A&&(F=parseFloat(A[1]),E=parseFloat((1/F).toFixed(2))),z&&(F=parseFloat(z[1]),E=parseFloat((1/F).toFixed(2)))}}}if(!F&&!E){var y=N.navigator.userAgent,x=(!!y.match(/android/gi),!!y.match(/iphone/gi)),w=x&&!!y.match(/OS 9_3/),v=N.devicePixelRatio;F=x&&!w?v>=3&&(!F||F>=3)?3:v>=2&&(!F||F>=2)?2:1:1,E=1/F}if(I.setAttribute("data-dpr",F),!H){if(H=J.createElement("meta"),H.setAttribute("name","viewport"),H.setAttribute("content","initial-scale="+E+", maximum-scale="+E+", minimum-scale="+E+", user-scalable=no"),I.firstElementChild){I.firstElementChild.appendChild(H)}else{var u=J.createElement("div");u.appendChild(H),J.write(u.innerHTML)}}N.addEventListener("resize",function(){clearTimeout(K),K=setTimeout(L,300)},!1),N.addEventListener("pageshow",function(b){b.persisted&&(clearTimeout(K),K=setTimeout(L,300))},!1),"complete"===J.readyState?J.body.style.fontSize=12*F+"px":J.addEventListener("DOMContentLoaded",function(){J.body.style.fontSize=12*F+"px"},!1),L(),D.dpr=N.dpr=F,D.refreshRem=L,D.rem2px=function(d){var c=parseFloat(d)*this.rem;return"string"==typeof d&&d.match(/rem$/)&&(c+="px"),c},D.px2rem=function(d){var c=parseFloat(d)/this.rem;return"string"==typeof d&&d.match(/px$/)&&(c+="rem"),c}}(window,window.lib||(window.lib={}));
+    // $('input:radio:first').attr('checked', 'checked'); // 单选框默认选择第一种支付方式
+    // 从服务端获取第三方支付需要的参数
+    function getPostData() {
+      const cpOrder = document.getElementById('cpOrder').value;
+      var payChannelType = $("input[type=radio]:checked").val(); // 监听radio的change事件并动态获取value值
+      const data = {
+        action: 'get_post_data',
+        cpOrder: cpOrder,
+        payChannelType: payChannelType
+      }
+      // 从服务端获第三方支付所需要的的取必要参数
+      // const url = 'http://localhost:7007/pay/api'         // 本地
+      const url = 'http://47.104.201.169:7007/pay/api'    // 测试环境
+      // const url = 'http://47.105.188.67:7007/pay/api'       // 正式环境
+      axios.post(url, data)
+      .then(function (response) {
+        console.log('response', response);
+
+        const postData = response.data.data;
+        
+        document.getElementById('funcode').value = postData.funcode;
+        document.getElementById('version').value = postData.version;
+        document.getElementById('appId').value = postData.appId;
+        document.getElementById('mhtOrderNo').value = postData.mhtOrderNo;
+        document.getElementById('mhtOrderName').value = postData.mhtOrderName;
+        document.getElementById('mhtOrderType').value = postData.mhtOrderType;
+        document.getElementById('mhtCurrencyType').value = postData.mhtCurrencyType;
+        document.getElementById('mhtOrderAmt').value = postData.mhtOrderAmt;
+        document.getElementById('mhtOrderDetail').value = postData.mhtOrderDetail;
+        document.getElementById('mhtOrderStartTime').value = postData.mhtOrderStartTime;
+        document.getElementById('notifyUrl').value = postData.notifyUrl;
+        document.getElementById('frontNotifyUrl').value = postData.frontNotifyUrl;
+        document.getElementById('mhtCharset').value = postData.mhtCharset;
+        document.getElementById('deviceType').value = postData.deviceType;
+        document.getElementById('mhtSignType').value = postData.mhtSignType;
+        document.getElementById('mhtSignature').value = postData.mhtSignature;
+        // 根据第三方参数规则   paychanneltype=13 且 outputtype=0、1、5 时必填 consumerCreateIp（验证在服务端进行，此处只做渲染控制）
+        if(postData.consumerCreateIp){
+          document.getElementById('consumerCreateIp').name = "consumerCreateIp";
+          document.getElementById('consumerCreateIp').value = postData.consumerCreateIp;
+        }
+        if(postData.outputType){
+          document.getElementById('outputType').name = "outputType";
+          document.getElementById('outputType').value = postData.outputType;
+        }
+        
+ 
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    }
+  </script>
+</html>
